@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LinkForge · A collection of project links</title>
+<style>
+:root{--bg:#f4f5fb;--bg2:#e6e9ff;--card:#ffffff;--text:#12162b;--muted:#5b627a;--border:#dde1f0;--accent:#5b5bf0;--accent2:#0ea5e9;--ok:#16a34a;--shadow:0 8px 28px rgba(40,50,110,.10);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a0d18;--bg2:#141a3a;--card:#131937;--text:#eef0fb;--muted:#a0a8c6;--border:#252c50;--accent:#8b8cf8;--accent2:#38bdf8;--ok:#4ade80;--shadow:0 8px 28px rgba(0,0,0,.45)}}
+:root[data-theme="dark"]{--bg:#0a0d18;--bg2:#141a3a;--card:#131937;--text:#eef0fb;--muted:#a0a8c6;--border:#252c50;--accent:#8b8cf8;--accent2:#38bdf8;--ok:#4ade80;--shadow:0 8px 28px rgba(0,0,0,.45)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;min-height:100%;color:var(--text);background:var(--bg);background-image:radial-gradient(900px 500px at 15% -10%,var(--bg2),transparent 70%),radial-gradient(800px 500px at 100% 0%,var(--bg2),transparent 70%);background-repeat:no-repeat;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(14px,4vw,32px)}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px}
+.logo b{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+.icon-btn{width:42px;height:42px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:18px;cursor:pointer}
+header{text-align:center;padding:clamp(28px,7vw,72px) 0 20px}
+.tag{display:inline-block;font-size:13px;padding:6px 14px;border:1px solid var(--border);border-radius:99px;color:var(--muted);background:var(--card)}
+h1{font-size:clamp(40px,10vw,84px);line-height:1.25;padding:0 .05em .12em;letter-spacing:-2px;margin:12px 0 6px;color:var(--accent)}
+@supports ((-webkit-background-clip:text) or (background-clip:text)){h1{background:linear-gradient(100deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}}
+.sub{font-size:clamp(16px,2.4vw,20px);color:var(--muted);min-height:1.6em}
+.stats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:120px;padding:14px 22px;border-radius:16px;border:1px solid var(--border);background:var(--card)}
+.stat strong{display:block;font-size:28px;line-height:1.1}
+.stat small{color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:42px;padding:9px 16px;border-radius:11px;border:1px solid var(--border);background:var(--card);color:var(--text);text-decoration:none;font-weight:600;font-size:14px;cursor:pointer;font-family:inherit}
+.btn.primary{background:linear-gradient(100deg,var(--accent),var(--accent2));color:#fff;border-color:transparent}
+.cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:30px 0 18px}
+.tools input{flex:1;min-width:200px;max-width:440px;padding:12px 16px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:16px;font-family:inherit}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{min-height:40px;padding:8px 15px;border-radius:99px;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;font-size:13px;font-family:inherit}
+.chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;padding-bottom:48px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);border-color:var(--accent)}
+.card[hidden]{display:none}
+.top{display:flex;justify-content:space-between;align-items:center}
+.ico{display:grid;place-items:center;width:54px;height:54px;border-radius:15px;font-size:28px;border:1px solid var(--border);background:var(--bg2)}
+.status{font-size:12px;font-weight:700;padding:4px 11px;border-radius:99px;border:1px solid var(--ok);color:var(--ok)}
+.card h3{margin:0;font-size:22px}
+.card p{margin:0;color:var(--muted);font-size:14.5px;flex:1}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tags em{font-style:normal;font-size:12px;padding:3px 9px;border-radius:8px;background:var(--bg2);color:var(--muted)}
+.url{font-size:12px;color:var(--muted);word-break:break-all}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.empty{text-align:center;color:var(--muted);padding:30px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);padding:11px 18px;border-radius:12px;background:var(--text);color:var(--bg);font-size:14px;display:none;z-index:50}
+footer{border-top:1px solid var(--border);padding:24px 0 36px;text-align:center;color:var(--muted);font-size:14px}
+footer a{color:var(--accent);text-decoration:none;margin:0 8px;display:inline-block;padding:4px}
+@media (max-width:640px){
+  .cta{flex-direction:column}.tools{flex-direction:column;align-items:stretch}.tools input{max-width:none}
+  .grid{grid-template-columns:1fr;gap:14px}.card{padding:18px}.actions .btn{flex:1}.stat{flex:1;min-width:90px;padding:12px}
+}
+@media (hover:none){.card:hover{transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <div class="logo"><b>🔗</b>LinkForge</div>
+  <button class="icon-btn" id="theme" aria-label="Toggle theme">🌓</button>
+</nav>
+
+<header>
+  <span class="tag">🔗 A collection of project links</span>
+  <h1>LinkForge</h1>
+  <div class="sub" id="typed">A collection of project links</div>
+  <div class="stats">
+    <div class="stat"><strong>4</strong><small>Projects</small></div>
+    <div class="stat"><strong>4</strong><small>Live sites</small></div>
+    <div class="stat"><strong>3</strong><small>Built with React</small></div>
+  </div>
+  <div class="cta">
+    <a class="btn primary" href="#projects">Browse projects ↓</a>
+    <a class="btn" href="https://github.com/abhinavmaurya12" target="_blank" rel="noopener">GitHub profile</a>
+  </div>
+</header>
+
+<main id="projects">
+  <div class="tools">
+    <input id="q" type="search" placeholder="Search projects…" aria-label="Search projects">
+    <div class="chips"><button class="chip on" data-f="all">All</button><button class="chip" data-f="react">React</button><button class="chip" data-f="java">Java</button></div>
+  </div>
+
+  <div class="grid" id="grid">
+    <article class="card" data-k="javasutra java learning programming concepts">
+      <div class="top"><span class="ico">☕</span><span class="status">● Live</span></div>
+      <h3>JavaSutra</h3>
+      <p>Java learning website for exploring programming concepts.</p>
+      <div class="tags"><em>Java</em><em>Learning</em></div>
+      <div class="url">https://abhinavmaurya12.github.io/JavaSutra/</div>
+      <div class="actions"><a class="btn primary" href="https://abhinavmaurya12.github.io/JavaSutra/" target="_blank" rel="noopener">Open live ↗</a><button class="btn" data-copy="https://abhinavmaurya12.github.io/JavaSutra/">Copy link</button><a class="btn" href="https://github.com/abhinavmaurya12/JavaSutra" target="_blank" rel="noopener">Source</a></div>
+    </article>
+    <article class="card" data-k="javapath java react dsa interview coding practice platform">
+      <div class="top"><span class="ico">🌐</span><span class="status">● Live</span></div>
+      <h3>JavaPath</h3>
+      <p>Java, DSA, interview preparation, and coding practice platform.</p>
+      <div class="tags"><em>React</em><em>Java</em><em>DSA</em></div>
+      <div class="url">https://abhinavmaurya12.github.io/javapath-react/</div>
+      <div class="actions"><a class="btn primary" href="https://abhinavmaurya12.github.io/javapath-react/" target="_blank" rel="noopener">Open live ↗</a><button class="btn" data-copy="https://abhinavmaurya12.github.io/javapath-react/">Copy link</button><a class="btn" href="https://github.com/abhinavmaurya12/javapath-react" target="_blank" rel="noopener">Source</a></div>
+    </article>
+    <article class="card" data-k="gitora react github developer platform clone">
+      <div class="top"><span class="ico">🚀</span><span class="status">● Live</span></div>
+      <h3>Gitora</h3>
+      <p>GitHub-inspired developer platform clone.</p>
+      <div class="tags"><em>React</em><em>Clone</em></div>
+      <div class="url">https://abhinavmaurya12.github.io/Gitora</div>
+      <div class="actions"><a class="btn primary" href="https://abhinavmaurya12.github.io/Gitora" target="_blank" rel="noopener">Open live ↗</a><button class="btn" data-copy="https://abhinavmaurya12.github.io/Gitora">Copy link</button><a class="btn" href="https://github.com/abhinavmaurya12/Gitora" target="_blank" rel="noopener">Source</a></div>
+    </article>
+    <article class="card" data-k="funbyte react browser games interactive mini projects">
+      <div class="top"><span class="ico">🎮</span><span class="status">● Live</span></div>
+      <h3>FunByte</h3>
+      <p>React-based browser games and interactive mini-projects.</p>
+      <div class="tags"><em>React</em><em>Games</em></div>
+      <div class="url">https://abhinavmaurya12.github.io/funbyte/</div>
+      <div class="actions"><a class="btn primary" href="https://abhinavmaurya12.github.io/funbyte/" target="_blank" rel="noopener">Open live ↗</a><button class="btn" data-copy="https://abhinavmaurya12.github.io/funbyte/">Copy link</button><a class="btn" href="https://github.com/abhinavmaurya12/funbyte" target="_blank" rel="noopener">Source</a></div>
+    </article>
+  </div>
+  <div class="empty" id="empty" hidden>No projects match your search.</div>
+</main>
+
+<footer>
+  <a href="https://github.com/abhinavmaurya12" target="_blank" rel="noopener">GitHub</a>·
+  <a href="https://www.linkedin.com/in/abhinav-maurya-25162b338" target="_blank" rel="noopener">LinkedIn</a>·
+  <a href="https://www.instagram.com/_abhinav_830_" target="_blank" rel="noopener">Instagram</a>
+  <div style="margin-top:10px">© Abhinav Maurya</div>
+</footer>
+</div>
+<div class="toast" id="toast">Link copied</div>
+
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s)};
+  var cards=[].slice.call(document.querySelectorAll(".card")),term="",f="all";
+  function apply(){
+    var n=0;
+    cards.forEach(function(c){
+      var k=c.getAttribute("data-k");
+      var show=k.indexOf(term)>-1&&(f==="all"||k.indexOf(f)>-1);
+      c.hidden=!show;if(show)n++;
+    });
+    $("#empty").hidden=n>0;
+  }
+  $("#q").addEventListener("input",function(e){term=e.target.value.toLowerCase().trim();apply()});
+  [].forEach.call(document.querySelectorAll(".chip"),function(b){
+    b.addEventListener("click",function(){
+      [].forEach.call(document.querySelectorAll(".chip"),function(c){c.classList.remove("on")});
+      b.classList.add("on");f=b.getAttribute("data-f");apply();
+    });
+  });
+  $("#grid").addEventListener("click",function(e){
+    var b=e.target.closest("[data-copy]");if(!b)return;
+    var t=$("#toast");
+    try{navigator.clipboard.writeText(b.getAttribute("data-copy"))}catch(_){}
+    t.style.display="block";setTimeout(function(){t.style.display="none"},1500);
+  });
+  var root=document.documentElement;
+  try{var s=localStorage.getItem("lf-theme");if(s)root.setAttribute("data-theme",s)}catch(_){}
+  $("#theme").addEventListener("click",function(){
+    var cur=root.getAttribute("data-theme");
+    var dark=cur?cur==="dark":window.matchMedia("(prefers-color-scheme:dark)").matches;
+    var nx=dark?"light":"dark";root.setAttribute("data-theme",nx);
+    try{localStorage.setItem("lf-theme",nx)}catch(_){}
+  });
+  var words=["A collection of project links","Java · DSA · React · Games","Built by Abhinav Maurya"],wi=0,ci=0,del=false,el=$("#typed");
+  (function type(){
+    var w=words[wi];el.textContent=w.slice(0,ci);
+    if(!del&&ci===w.length){del=true;return setTimeout(type,1700)}
+    if(del&&ci===0){del=false;wi=(wi+1)%words.length}
+    ci+=del?-1:1;setTimeout(type,del?28:55);
+  })();
+})();
+</script>
+</body>
+</html>
