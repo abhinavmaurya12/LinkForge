@@ -15,6 +15,7 @@ body{margin:0;min-height:100%;color:var(--text);background:var(--bg);background-
 .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(14px,4vw,32px)}
 nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
 .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px}
+.ver{font-size:12px;font-weight:700;padding:3px 9px;border-radius:99px;border:1px solid var(--border);background:var(--card);color:var(--accent);white-space:nowrap}
 .logo b{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
 .icon-btn{width:42px;height:42px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:18px;cursor:pointer}
 header{text-align:center;padding:clamp(28px,7vw,72px) 0 20px}
@@ -61,7 +62,7 @@ footer a{color:var(--accent);text-decoration:none;margin:0 8px;display:inline-bl
 <body>
 <div class="wrap">
 <nav>
-  <div class="logo"><b>🔗</b>LinkForge</div>
+  <div class="logo"><b>🔗</b>LinkForge<span class="ver">Vr. 1.1.2</span></div>
   <button class="icon-btn" id="theme" aria-label="Toggle theme">🌓</button>
 </nav>
 
@@ -70,8 +71,8 @@ footer a{color:var(--accent);text-decoration:none;margin:0 8px;display:inline-bl
   <h1>LinkForge</h1>
   <div class="sub" id="typed">A collection of project links</div>
   <div class="stats">
-    <div class="stat"><strong>4</strong><small>Projects</small></div>
-    <div class="stat"><strong>4</strong><small>Live sites</small></div>
+    <div class="stat"><strong>5</strong><small>Projects</small></div>
+    <div class="stat"><strong>5</strong><small>Live sites</small></div>
     <div class="stat"><strong>3</strong><small>Built with React</small></div>
   </div>
   <div class="cta">
@@ -83,7 +84,7 @@ footer a{color:var(--accent);text-decoration:none;margin:0 8px;display:inline-bl
 <main id="projects">
   <div class="tools">
     <input id="q" type="search" placeholder="Search projects…" aria-label="Search projects">
-    <div class="chips"><button class="chip on" data-f="all">All</button><button class="chip" data-f="react">React</button><button class="chip" data-f="java">Java</button></div>
+    <div class="chips"><button class="chip on" data-f="all">All</button><button class="chip" data-f="react">React</button><button class="chip" data-f="java">Java</button><button class="chip" data-f="wordpress">WordPress</button></div>
   </div>
 
   <div class="grid" id="grid">
@@ -104,7 +105,7 @@ footer a{color:var(--accent);text-decoration:none;margin:0 8px;display:inline-bl
       <div class="actions"><a class="btn primary" href="https://abhinavmaurya12.github.io/javapath-react/" target="_blank" rel="noopener">Open live ↗</a><button class="btn" data-copy="https://abhinavmaurya12.github.io/javapath-react/">Copy link</button><a class="btn" href="https://github.com/abhinavmaurya12/javapath-react" target="_blank" rel="noopener">Source</a></div>
     </article>
     <article class="card" data-k="gitora react github developer platform clone">
-      <div class="top"><span class="ico">🚀</span><span class="status">● Live</span></div>
+      <div class="top"><span class="ico"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-label="Gitora code logo" role="img"><path d="M11 9 4 16l7 7"/><path d="M21 9l7 7-7 7" stroke="var(--accent2)"/><path d="M18 6l-4 20"/></svg></span><span class="status">● Live</span></div>
       <h3>Gitora</h3>
       <p>GitHub-inspired developer platform clone.</p>
       <div class="tags"><em>React</em><em>Clone</em></div>
@@ -118,6 +119,14 @@ footer a{color:var(--accent);text-decoration:none;margin:0 8px;display:inline-bl
       <div class="tags"><em>React</em><em>Games</em></div>
       <div class="url">https://abhinavmaurya12.github.io/funbyte/</div>
       <div class="actions"><a class="btn primary" href="https://abhinavmaurya12.github.io/funbyte/" target="_blank" rel="noopener">Open live ↗</a><button class="btn" data-copy="https://abhinavmaurya12.github.io/funbyte/">Copy link</button><a class="btn" href="https://github.com/abhinavmaurya12/funbyte" target="_blank" rel="noopener">Source</a></div>
+    </article>
+    <article class="card" data-k="anthe office antheoffice webdev agency website templates business wordpress live">
+      <div class="top"><span class="ico">🏢</span><span class="status">● Live</span></div>
+      <h3>Anthe Office</h3>
+      <p>WebDev agency website offering ready-made website templates and custom websites built from your idea.</p>
+      <div class="tags"><em>WordPress</em><em>Agency</em><em>.in domain</em></div>
+      <div class="url">https://antheoffice.in/</div>
+      <div class="actions"><a class="btn primary" href="https://antheoffice.in/" target="_blank" rel="noopener">Open live ↗</a><button class="btn" data-copy="https://antheoffice.in/">Copy link</button></div>
     </article>
   </div>
   <div class="empty" id="empty" hidden>No projects match your search.</div>
