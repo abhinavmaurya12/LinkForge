@@ -52,6 +52,11 @@ h1{font-size:clamp(40px,10vw,84px);line-height:1.25;padding:0 .05em .12em;letter
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);padding:11px 18px;border-radius:12px;background:var(--text);color:var(--bg);font-size:14px;display:none;z-index:50}
 footer{border-top:1px solid var(--border);padding:24px 0 36px;text-align:center;color:var(--muted);font-size:14px}
 footer a{color:var(--accent);text-decoration:none;margin:0 8px;display:inline-block;padding:4px}
+.f-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;text-align:left;margin:0 0 24px}
+.f-box{padding:18px 20px;border-radius:16px;border:1px solid var(--border);background:var(--card)}
+.f-box h4{margin:0 0 6px;font-size:16px;color:var(--text)}
+.f-box p{margin:0 0 10px;font-size:14px;line-height:1.55}
+.f-box a{margin:0;padding:4px 0;font-weight:600}
 @media (max-width:640px){
   .cta{flex-direction:column}.tools{flex-direction:column;align-items:stretch}.tools input{max-width:none}
   .grid{grid-template-columns:1fr;gap:14px}.card{padding:18px}.actions .btn{flex:1}.stat{flex:1;min-width:90px;padding:12px}
@@ -78,6 +83,7 @@ footer a{color:var(--accent);text-decoration:none;margin:0 8px;display:inline-bl
   <div class="cta">
     <a class="btn primary" href="#projects">Browse projects ↓</a>
     <a class="btn" href="https://github.com/abhinavmaurya12" target="_blank" rel="noopener">GitHub profile</a>
+    <a class="btn" href="https://abhinavmaurya12.github.io/ReplicaX/" target="_blank" rel="noopener">🚀 ReplicaX</a>
   </div>
 </header>
 
@@ -133,9 +139,22 @@ footer a{color:var(--accent);text-decoration:none;margin:0 8px;display:inline-bl
 </main>
 
 <footer>
+  <div class="f-grid">
+    <section class="f-box">
+      <h4>🚀 About ReplicaX</h4>
+      <p>One Platform. Multiple Website Replicas. ReplicaX is a web development project dedicated to recreating and exploring popular website designs through frontend development. It is a growing collection of replicas built to practice UI/UX design, responsive layouts, and modern web development techniques.</p>
+      <a href="https://abhinavmaurya12.github.io/ReplicaX/" target="_blank" rel="noopener">Visit ReplicaX ↗</a>
+    </section>
+    <section class="f-box">
+      <h4>🐙 My GitHub</h4>
+      <p>Explore all my projects, source code, and experiments on GitHub, from Java learning sites to React apps and more.</p>
+      <a href="https://github.com/abhinavmaurya12" target="_blank" rel="noopener">github.com/abhinavmaurya12 ↗</a>
+    </section>
+  </div>
   <a href="https://github.com/abhinavmaurya12" target="_blank" rel="noopener">GitHub</a>·
   <a href="https://www.linkedin.com/in/abhinav-maurya-25162b338" target="_blank" rel="noopener">LinkedIn</a>·
-  <a href="https://www.instagram.com/_abhinav_830_" target="_blank" rel="noopener">Instagram</a>
+  <a href="https://www.instagram.com/_abhinav_830_" target="_blank" rel="noopener">Instagram</a>·
+  <a href="https://abhinavmaurya12.github.io/ReplicaX/" target="_blank" rel="noopener">ReplicaX</a>
   <div style="margin-top:10px">© Abhinav Maurya</div>
 </footer>
 </div>
