@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme:light)">
+<meta name="theme-color" content="#131314" media="(prefers-color-scheme:dark)">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LinkForge · Project Store</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%20role%3D%22img%22%20aria-label%3D%22LinkForge%20logo%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%235b5bf0%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%230ea5e9%22/%3E%3C/linearGradient%3E%3ClinearGradient%20id%3D%22sp%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23fff176%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ff9800%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22112%22%20fill%3D%22url%28%23bg%29%22/%3E%3Cg%20transform%3D%22translate%28256%20262%29%20rotate%28-45%29%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%3E%3Crect%20x%3D%22-160%22%20y%3D%22-48%22%20width%3D%22180%22%20height%3D%2296%22%20rx%3D%2248%22%20stroke%3D%22%23fff%22%20stroke-width%3D%2228%22/%3E%3Crect%20x%3D%22-20%22%20y%3D%22-48%22%20width%3D%22180%22%20height%3D%2296%22%20rx%3D%2248%22%20stroke%3D%22url%28%23bg%29%22%20stroke-width%3D%2246%22/%3E%3Crect%20x%3D%22-20%22%20y%3D%22-48%22%20width%3D%22180%22%20height%3D%2296%22%20rx%3D%2248%22%20stroke%3D%22%23fff%22%20stroke-width%3D%2228%22/%3E%3C/g%3E%3Cpath%20d%3D%22M392%2078l11%2033%2033%2011-33%2011-11%2033-11-33-33-11%2033-11z%22%20fill%3D%22url%28%23sp%29%22/%3E%3Ccircle%20cx%3D%22130%22%20cy%3D%22396%22%20r%3D%229%22%20fill%3D%22%23fff%22%20opacity%3D%22.7%22/%3E%3Ccircle%20cx%3D%22164%22%20cy%3D%22420%22%20r%3D%225%22%20fill%3D%22%23fff%22%20opacity%3D%22.5%22/%3E%3C/svg%3E">
+<style>
+:root{--bg:#fff;--card:#fff;--text:#202124;--muted:#5f6368;--border:#dadce0;--green:#01875f;--green-bg:#e6f4ee;--chip:#f1f3f4;--shadow:0 1px 3px rgba(60,64,67,.25);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#131314;--card:#1e1f20;--text:#e3e3e3;--muted:#9aa0a6;--border:#3c4043;--green:#4ade9b;--green-bg:#17332a;--chip:#2a2b2e;--shadow:0 1px 3px rgba(0,0,0,.6)}}
+:root[data-theme="dark"]{--bg:#131314;--card:#1e1f20;--text:#e3e3e3;--muted:#9aa0a6;--border:#3c4043;--green:#4ade9b;--green-bg:#17332a;--chip:#2a2b2e;--shadow:0 1px 3px rgba(0,0,0,.6)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Google Sans",Roboto,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.45}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1200px;margin:0 auto;padding:0 var(--pad)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--border)}
+.bar .wrap{display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;min-height:64px;padding-top:8px;padding-bottom:8px}
+.logo{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:500;white-space:nowrap}
+.logo svg{width:36px;height:36px}
+.ver{font-size:11px;padding:2px 8px;border-radius:99px;background:var(--chip);color:var(--muted)}
+.search{flex:1;min-width:0;max-width:560px;margin:0 auto;display:flex;align-items:center;gap:10px;height:44px;padding:0 16px;border-radius:99px;background:var(--chip)}
+.search input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--text);font:inherit;font-size:16px}
+.ib{width:42px;height:42px;border-radius:50%;border:0;background:transparent;color:var(--text);font-size:18px;cursor:pointer}
+.ib:hover{background:var(--chip)}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:14px 0 4px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.chip{flex:none;height:36px;padding:0 16px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font:inherit;font-size:14px;cursor:pointer}
+.chip.on{background:var(--green-bg);color:var(--green);border-color:var(--green-bg);font-weight:600}
+.hero{display:flex;align-items:center;gap:clamp(14px,3vw,28px);margin:18px 0 6px;padding:clamp(18px,4vw,32px);border-radius:20px;color:#fff;background:linear-gradient(120deg,#1a73e8,#7b3ff2 60%,#d93f9a)}
+.hero .app-ico{width:clamp(72px,14vw,112px);height:clamp(72px,14vw,112px);font-size:clamp(36px,7vw,56px);border-radius:24px;background:#fff2;border:2px solid #fff5}
+.hero small{opacity:.85;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.hero h2{margin:2px 0 6px;font-size:clamp(22px,4.5vw,36px);font-weight:500;line-height:1.2}
+.hero p{margin:0 0 14px;opacity:.92;font-size:15px;max-width:560px}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 20px;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--green);font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.btn.go{background:var(--green);border-color:var(--green);color:#fff}
+:root[data-theme="dark"] .btn.go{color:#0b2a1f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.go{color:#0b2a1f}}
+.hero .btn{background:#fff;color:#1a56c4;border-color:#fff}
+h3.sec{display:flex;justify-content:space-between;align-items:center;margin:28px 0 12px;font-size:20px;font-weight:500}
+h3.sec span{font-size:13px;color:var(--muted);font-weight:400}
+.row{display:flex;gap:18px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+.row::-webkit-scrollbar{display:none}
+.tile{flex:none;width:104px;cursor:pointer}
+.app-ico{display:grid;place-items:center;width:100%;aspect-ratio:1;border-radius:22%;font-size:40px;color:#fff;box-shadow:var(--shadow)}
+.tile b{display:block;margin-top:8px;font-size:13px;font-weight:500;line-height:1.25;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.tile small{color:var(--muted);font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr));gap:14px}
+.card{display:flex;flex-direction:column;gap:12px;padding:16px;border:1px solid var(--border);border-radius:16px;background:var(--card)}
+.card[hidden]{display:none}
+.head{display:flex;gap:14px}
+.head .app-ico{width:64px;flex:none;font-size:30px}
+.head h4{margin:0;font-size:17px;font-weight:500;line-height:1.25}
+.dev{color:var(--green);font-size:13px;font-weight:500}
+.meta{color:var(--muted);font-size:12px}
+.card p{margin:0;color:var(--muted);font-size:14px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tags em{font-style:normal;font-size:12px;padding:3px 10px;border-radius:99px;background:var(--chip);color:var(--muted)}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+.empty{text-align:center;color:var(--muted);padding:40px 0}
+footer{margin-top:40px;border-top:1px solid var(--border);padding:28px 0 36px;color:var(--muted);font-size:13px}
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:22px}
+.fb{padding:16px;border:1px solid var(--border);border-radius:16px;background:var(--card)}
+.fb h5{margin:0 0 6px;font-size:15px;color:var(--text);font-weight:500}
+.fb p{margin:0 0 8px}
+.fb a,.links a{color:var(--green);font-weight:500}
+.links{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:8px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#323232;color:#fff;padding:10px 20px;border-radius:8px;font-size:14px;display:none;z-index:9}
+@media (max-width:600px){.hero{flex-direction:column;align-items:flex-start}.logo .ver{display:none}}
+
+:root{--pad:clamp(14px,4vw,28px)}
+.app-ico{transition:transform .15s}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.grid{grid-template-columns:repeat(3,1fr)}
+@media (hover:hover){.card:hover{box-shadow:var(--shadow)}.tile:hover .app-ico{transform:translateY(-3px)}.chip:hover{background:var(--chip)}.chip.on:hover{background:var(--green-bg)}.btn:hover{background:var(--green-bg)}.btn.go:hover{background:var(--green);filter:brightness(1.1)}.hero .btn:hover{background:#eef}}
+@media (min-width:900px){.tile{width:128px}.hero{padding:44px 52px;margin-top:24px}.hero .app-ico{width:136px;height:136px;font-size:66px}.card{padding:18px}h3.sec{font-size:22px}}
+@media (min-width:601px) and (max-width:899px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){
+.logo{margin-right:auto}
+.search{order:3;flex:1 1 100%;max-width:none;height:46px}
+.bar .wrap{padding-bottom:12px}
+.tabs{margin:0 calc(-1*var(--pad));padding-left:var(--pad);padding-right:var(--pad)}
+.chip{height:40px}
+.row{margin:0 calc(-1*var(--pad));padding:0 var(--pad) 8px;scroll-snap-type:x proximity}
+.tile{width:92px;scroll-snap-align:start}
+.hero{border-radius:16px}
+.hero .btn,.acts .btn{height:44px}
+.acts .btn{flex:1 1 0}
+.acts .btn.go{flex:1 1 100%}
+.grid{grid-template-columns:1fr}
+h3.sec{font-size:18px;margin-top:24px}
+footer{padding-bottom:24px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+.logo{color:inherit}
+.card{cursor:pointer}
+.head h4 a{color:inherit}
+.hero .btn.ghost{background:transparent;color:#fff;border-color:#fff9;margin-left:8px}
+.d-head{display:flex;gap:clamp(14px,3vw,28px);align-items:center;padding:24px 0 8px}
+.d-head .app-ico{width:clamp(84px,18vw,128px);flex:none;font-size:clamp(40px,8vw,60px)}
+.d-head h1{margin:0;font-size:clamp(24px,5vw,38px);font-weight:500;line-height:1.2}
+.d-stats{display:flex;margin:18px 0;overflow-x:auto;scrollbar-width:none}
+.d-stats div{flex:1 0 90px;text-align:center;padding:4px 10px;border-left:1px solid var(--border)}
+.d-stats div:first-child{border-left:0}
+.d-stats b{display:block;font-size:15px;font-weight:600}
+.d-stats small{color:var(--muted);font-size:12px}
+.d-acts{max-width:520px}
+.d-acts .btn{height:44px;flex:1 1 0}
+.d-acts .btn.go{flex:1 1 100%}
+.d-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:0 36px}
+@media (min-width:900px){.d-grid{grid-template-columns:minmax(0,1fr) 330px}}
+.long{margin:0;font-size:15px;line-height:1.65}
+.feat{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.feat li{display:flex;gap:10px;font-size:15px}
+.feat li:before{content:"✓";color:var(--green);font-weight:700}
+.phone{width:min(100%,340px);height:600px;border:8px solid #202124;border-radius:32px;overflow:hidden;background:var(--chip);display:grid}
+.ph-in{display:grid;place-items:center;align-content:center;gap:14px;padding:20px;text-align:center;color:var(--muted);font-size:13px}
+.ph-in .app-ico{width:84px;font-size:40px}
+.phone iframe{width:100%;height:100%;border:0;background:#fff}
+.irow{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--border);font-size:14px}
+.irow:last-child{border:0}
+.irow span:first-child{color:var(--muted)}
+.irow a{color:var(--green);font-weight:500;text-align:right;word-break:break-all}
+aside .fb{margin-top:28px}
+.sim{display:flex;gap:12px;align-items:center;padding:8px 0}
+.sim .app-ico{width:52px;flex:none;font-size:24px}
+.sim b{display:block;font-size:14px;font-weight:500}
+.sim small{color:var(--muted);font-size:12px}
+@media (max-width:600px){.hero .btn.ghost{margin-left:0;margin-top:8px}.phone{height:540px;margin:0 auto}.d-head{padding-top:16px}}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="bar"><div class="wrap">
+  <button class="ib" id="back" aria-label="Back" hidden>←</button>
+  <a class="logo" href="#"><svg viewBox="0 0 512 512" aria-hidden="true"><defs><linearGradient id="lfbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5b5bf0"/><stop offset="1" stop-color="#0ea5e9"/></linearGradient><linearGradient id="lfsp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff176"/><stop offset="1" stop-color="#ff9800"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#lfbg)"/><g transform="translate(256 262) rotate(-45)" fill="none" stroke-linecap="round"><rect x="-160" y="-48" width="180" height="96" rx="48" stroke="#fff" stroke-width="28"/><rect x="-20" y="-48" width="180" height="96" rx="48" stroke="url(#lfbg)" stroke-width="46"/><rect x="-20" y="-48" width="180" height="96" rx="48" stroke="#fff" stroke-width="28"/></g><path d="M392 78l11 33 33 11-33 11-11 33-11-33-33-11 33-11z" fill="url(#lfsp)"/><circle cx="130" cy="396" r="9" fill="#fff" opacity=".7"/><circle cx="164" cy="420" r="5" fill="#fff" opacity=".5"/></svg>LinkForge<span class="ver">Vr. 1.1.2</span></a>
+  <label class="search"><span aria-hidden="true">🔍</span><input id="q" type="search" placeholder="Search projects" aria-label="Search projects"></label>
+  <button class="ib" id="theme" aria-label="Toggle theme">🌓</button>
+</div></div>
+
+<div class="wrap">
+  <div id="detail" hidden></div>
+  <div id="home">
+  <div class="tabs" id="tabs"></div>
+
+  <section class="hero" id="hero"></section>
+
+  <h3 class="sec" id="sugg-h">Suggested for you <span id="count"></span></h3>
+  <div class="row" id="row"></div>
+
+  <h3 class="sec" id="all-h">All projects</h3>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" hidden>No projects match your search.</div>
+  </div>
+
+  <footer>
+    <div class="fg">
+      <section class="fb"><h5>🚀 About ReplicaX</h5><p>One Platform. Multiple Website Replicas. ReplicaX is a web development project dedicated to recreating and exploring popular website designs through frontend development. It is a growing collection of replicas built to practice UI/UX design, responsive layouts, and modern web development techniques.</p><a href="https://abhinavmaurya12.github.io/ReplicaX/" target="_blank" rel="noopener">Visit ReplicaX ↗</a></section>
+      <section class="fb"><h5>🐙 My GitHub</h5><p>Explore all my projects, source code, and experiments on GitHub, from Java learning sites to React apps and more.</p><a href="https://github.com/abhinavmaurya12" target="_blank" rel="noopener">github.com/abhinavmaurya12 ↗</a></section>
+    </div>
+    <div class="links">
+      <a href="https://github.com/abhinavmaurya12" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/abhinav-maurya-25162b338" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.instagram.com/_abhinav_830_" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://abhinavmaurya12.github.io/ReplicaX/" target="_blank" rel="noopener">ReplicaX</a>
+    </div>
+    © Abhinav Maurya
+  </footer>
+</div>
+<div class="toast" id="toast">Link copied</div>
+
+<script>
+(function(){
+  var B="https://abhinavmaurya12.github.io/",G="https://github.com/abhinavmaurya12/";
+  var apps=[
+    {id:"codepulse",l:"CodePulse is a modern, VS Code-inspired coding environment that gives developers a clean, powerful and familiar workspace right in the browser. Write your code, run it, preview the result instantly and keep creating — with nothing to install. If you have used VS Code, the layout will feel like home: a file explorer, tabbed editing and a tidy interface that keeps the focus on your code.",f:["Familiar VS Code-style layout", "Write, run and preview in one place", "Project folder with a file explorer", "Light theme by default", "Runs in the browser — no install"],n:"CodePulse",i:"⚡",bg:"linear-gradient(135deg,#7b3ff2,#d93f9a)",d:"Write. Run. Preview. Create. A modern, VS Code-inspired coding environment that gives developers a clean, powerful, and familiar workspace.",t:["Editor","VS Code-inspired","Dev Tool"],u:B+"CodePulse/",s:G+"CodePulse",c:"tools editor"},
+    {id:"javasutra",l:"JavaSutra is a Java learning website for exploring programming concepts step by step. Lessons are organised into chapters with full notes, so you can learn at your own pace, revise quickly and keep everything in one place. A friendly mascot, a Hindi language toggle and an AI chat helper make learning Java feel simple and welcoming.",f:["Chapter-wise Java lessons", "Full Notes for quick revision", "Hindi language toggle", "Friendly mascot guide", "AI chat helper for doubts"],n:"JavaSutra",i:"☕",bg:"linear-gradient(135deg,#f59e0b,#ea580c)",d:"Java learning website for exploring programming concepts.",t:["Java","Learning"],u:B+"JavaSutra/",s:G+"JavaSutra",c:"java"},
+    {id:"javapath",l:"JavaPath is a React-based platform for anyone preparing for a Java career. It brings Java fundamentals, data structures and algorithms, interview preparation and hands-on coding practice together in a single, focused learning path.",f:["Java fundamentals", "Data structures and algorithms (DSA)", "Interview preparation", "Coding practice", "Built with React"],n:"JavaPath",i:"🌐",bg:"linear-gradient(135deg,#0ea5e9,#2563eb)",d:"Java, DSA, interview preparation, and coding practice platform.",t:["React","Java","DSA"],u:B+"javapath-react/",s:G+"javapath-react",c:"react java"},
+    {id:"gitora",l:"Gitora is a GitHub-inspired developer platform clone built with React. It recreates the look and feel of a modern code-hosting site, making it a great way to explore how real-world developer tools are designed and built.",f:["GitHub-inspired interface", "Repository-style pages and navigation", "Responsive layout", "Built with React"],n:"Gitora",i:"&lt;/&gt;",bg:"linear-gradient(135deg,#334155,#0f172a)",d:"GitHub-inspired developer platform clone.",t:["React","Clone"],u:B+"Gitora",s:G+"Gitora",c:"react clones"},
+    {id:"linksphere",l:"LinkSphere is a LinkedIn-inspired professional networking website designed to bring professionals together. Browse a home feed, grow your network, explore jobs and chat through messaging — all in a clean, familiar interface.",f:["Home feed", "My Network", "Jobs", "Messaging"],n:"LinkSphere",i:"💼",bg:"linear-gradient(135deg,#0a66c2,#0e8bd8)",d:"A LinkedIn-inspired professional networking website designed to bring professionals together.",t:["Networking","Clone"],u:B+"LinkSphere/",s:G+"LinkSphere",c:"clones"},
+    {id:"funbyte",l:"FunByte is a collection of React-based browser games and interactive mini-projects. Jump in and play straight from your browser, with nothing to download or install.",f:["Playable browser games", "Interactive mini-projects", "Built with React", "No install needed"],n:"FunByte",i:"🎮",bg:"linear-gradient(135deg,#16a34a,#0d9488)",d:"React-based browser games and interactive mini-projects.",t:["React","Games"],u:B+"funbyte/",s:G+"funbyte",c:"react"},
+    {id:"antheoffice",l:"Anthe Office is a WebDev agency website offering ready-made website templates and custom websites built from your idea. Whether you need a quick start from a template or a site designed around your business, Anthe Office helps you get online with a professional presence.",f:["Ready-made website templates", "Custom websites built from your idea", "WordPress-based", "Live on its own .in domain"],n:"Anthe Office",i:"🏢",bg:"linear-gradient(135deg,#e11d48,#be185d)",d:"WebDev agency website offering ready-made website templates and custom websites built from your idea.",t:["WordPress","Agency",".in domain"],u:"https://antheoffice.in/",s:"",c:"wordpress"}
+  ];
+  var cats=[["all","All"],["react","React"],["java","Java"],["clones","Clones"],["tools","Tools"],["wordpress","WordPress"]];
+  var $=function(s){return document.querySelector(s)};
+  var term="",f="all",lbl="All";
+  function esc(x){return x}
+  var h=apps[0];
+  $("#hero").innerHTML='<div class="app-ico" style="background:'+h.bg+'">'+h.i+'</div><div><small>Editors’ choice · New</small><h2>'+h.n+' — Modern Code Editor</h2><p>'+h.d+'</p><a class="btn" href="'+h.u+'" target="_blank" rel="noopener">Open live ↗</a><a class="btn ghost" href="#'+h.id+'">Details</a></div>';
+  $("#count").textContent=apps.length+" apps";
+  $("#row").innerHTML=apps.map(function(a){return '<a class="tile" href="#'+a.id+'"><div class="app-ico" style="background:'+a.bg+'">'+a.i+'</div><b>'+a.n+'</b><small>'+a.t[0]+'</small></a>'}).join("");
+  $("#tabs").innerHTML=cats.map(function(c,i){return '<button class="chip'+(i?'':' on')+'" data-f="'+c[0]+'">'+c[1]+'</button>'}).join("");
+  $("#grid").innerHTML=apps.map(function(a,i){
+    return '<article class="card" data-i="'+i+'"><div class="head"><div class="app-ico" style="background:'+a.bg+'">'+a.i+'</div><div><h4><a href="#'+a.id+'">'+a.n+'</a></h4><div class="dev">Abhinav Maurya</div><div class="meta">● Live · Free</div></div></div>'+
+    '<p>'+a.d+'</p><div class="tags">'+a.t.map(function(x){return '<em>'+x+'</em>'}).join("")+'</div>'+
+    '<div class="acts"><a class="btn go" href="'+a.u+'" target="_blank" rel="noopener">Open</a><button class="btn" data-copy="'+a.u+'">Copy link</button>'+(a.s?'<a class="btn" href="'+a.s+'" target="_blank" rel="noopener">Source</a>':'')+'</div></article>'}).join("");
+  var cards=[].slice.call(document.querySelectorAll(".card"));
+  function apply(){
+    var n=0;
+    cards.forEach(function(el){
+      var a=apps[+el.getAttribute("data-i")];
+      var k=(a.n+" "+a.d+" "+a.t.join(" ")).toLowerCase();
+      var show=k.indexOf(term)>-1&&(f==="all"||a.c.indexOf(f)>-1);
+      el.hidden=!show;if(show)n++;
+    });
+    $("#empty").hidden=n>0;
+    var on=f!=="all"||term!=="";
+    $("#hero").hidden=on;$("#sugg-h").hidden=on;$("#row").hidden=on;
+    $("#all-h").textContent=on?(f!=="all"?lbl:"Results")+" · "+n+(n===1?" project":" projects"):"All projects";
+  }
+  $("#q").addEventListener("input",function(e){term=e.target.value.toLowerCase().trim();apply()});
+  $("#tabs").addEventListener("click",function(e){
+    var b=e.target.closest(".chip");if(!b)return;
+    [].forEach.call(document.querySelectorAll(".chip"),function(c){c.classList.remove("on")});
+    b.classList.add("on");f=b.getAttribute("data-f");lbl=b.textContent;apply();
+  });
+  document.addEventListener("click",function(e){
+    var b=e.target.closest("[data-copy]");if(!b)return;
+    var t=$("#toast");
+    try{navigator.clipboard.writeText(b.getAttribute("data-copy"))}catch(_){}
+    t.style.display="block";setTimeout(function(){t.style.display="none"},1500);
+  });
+
+  var home=$("#home"),det=$("#detail"),back=$("#back");
+  function detail(a){
+    var sim=apps.filter(function(x){return x!==a&&a.c.split(" ").some(function(w){return x.c.indexOf(w)>-1})});
+    if(sim.length<3)sim=apps.filter(function(x){return x!==a});
+    var rows=[["Developer","Abhinav Maurya"],["Platform","Web · any browser"],["Price","Free"],["Status","● Live"]];
+    det.innerHTML='<div class="d-head"><div class="app-ico" style="background:'+a.bg+'">'+a.i+'</div><div><h1>'+a.n+'</h1><div class="dev">Abhinav Maurya</div><div class="meta">'+a.t.join(" · ")+'</div></div></div>'+
+    '<div class="d-stats"><div><b>Live</b><small>Status</small></div><div><b>Free</b><small>Price</small></div><div><b>Web</b><small>Platform</small></div><div><b>'+a.t[0]+'</b><small>Category</small></div></div>'+
+    '<div class="acts d-acts"><a class="btn go" href="'+a.u+'" target="_blank" rel="noopener">Open</a><button class="btn" data-copy="'+a.u+'">Copy link</button>'+(a.s?'<a class="btn" href="'+a.s+'" target="_blank" rel="noopener">Source</a>':'')+'</div>'+
+    '<div class="d-grid"><div><h3 class="sec">Live preview</h3><div class="phone"><div class="ph-in"><div class="app-ico" style="background:'+a.bg+'">'+a.i+'</div><button class="btn go" data-load="'+a.u+'">Load preview</button><span>If a site blocks embedding, use Open instead.</span></div></div>'+
+    '<h3 class="sec">About this app</h3><p class="long">'+a.l+'</p>'+
+    '<h3 class="sec">Key features</h3><ul class="feat">'+a.f.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul>'+
+    '<h3 class="sec">Built with</h3><div class="tags">'+a.t.map(function(x){return '<em>'+x+'</em>'}).join("")+'</div>'+
+    '<h3 class="sec">About the developer</h3><p class="long"><b>Abhinav Maurya</b> — Java Full Stack Developer | Web Developer | Problem Solver. See more projects on <a href="https://github.com/abhinavmaurya12" target="_blank" rel="noopener" style="color:var(--green);font-weight:500">GitHub ↗</a>.</p></div>'+
+    '<aside><section class="fb"><h5>App info</h5>'+rows.map(function(r){return '<div class="irow"><span>'+r[0]+'</span><span>'+r[1]+'</span></div>'}).join("")+'<div class="irow"><span>Website</span><a href="'+a.u+'" target="_blank" rel="noopener">'+a.u.replace(/^https?:\/\//,"")+'</a></div>'+(a.s?'<div class="irow"><span>Source</span><a href="'+a.s+'" target="_blank" rel="noopener">GitHub repo</a></div>':'')+'</section>'+
+    '<h3 class="sec">Similar projects</h3>'+sim.slice(0,5).map(function(x){return '<a class="sim" href="#'+x.id+'"><div class="app-ico" style="background:'+x.bg+'">'+x.i+'</div><div><b>'+x.n+'</b><small>'+x.t[0]+'</small></div></a>'}).join("")+'</aside></div>';
+  }
+  function route(){
+    var id=location.hash.slice(1),a=apps.filter(function(x){return x.id===id})[0];
+    if(a){detail(a);document.title=a.n+" · LinkForge"}else{document.title="LinkForge · Project Store"}
+    home.hidden=!!a;det.hidden=!a;back.hidden=!a;
+    window.scrollTo(0,0);
+  }
+  window.addEventListener("hashchange",route);
+  back.addEventListener("click",function(){location.hash=""});
+  det.addEventListener("click",function(e){
+    var b=e.target.closest("[data-load]");if(!b)return;
+    var ph=b.closest(".phone"),fr=document.createElement("iframe");
+    fr.src=b.getAttribute("data-load");fr.title="Live preview";fr.loading="lazy";
+    ph.innerHTML="";ph.appendChild(fr);
+  });
+  $("#grid").addEventListener("click",function(e){
+    var c=e.target.closest(".card");if(!c||e.target.closest("a,button"))return;
+    location.hash=apps[+c.getAttribute("data-i")].id;
+  });
+  route();
+  var root=document.documentElement;
+  try{var s=localStorage.getItem("lf-theme");if(s)root.setAttribute("data-theme",s)}catch(_){}
+  $("#theme").addEventListener("click",function(){
+    var cur=root.getAttribute("data-theme");
+    var dark=cur?cur==="dark":window.matchMedia("(prefers-color-scheme:dark)").matches;
+    var nx=dark?"light":"dark";root.setAttribute("data-theme",nx);
+    try{localStorage.setItem("lf-theme",nx)}catch(_){}
+  });
+})();
+</script>
+</body>
+</html>
