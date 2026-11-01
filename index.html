@@ -150,6 +150,29 @@ pre.code{margin:0;max-width:900px;overflow-x:auto;padding:14px 16px;border-radiu
 .btag{font-size:14px;font-weight:600;white-space:nowrap;padding-left:14px;border-left:1px solid var(--border);color:#5b5bf0}
 @supports ((-webkit-background-clip:text) or (background-clip:text)){.btag{background:linear-gradient(100deg,#5b5bf0,#0ea5e9);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}}
 @media (max-width:600px){.btag{order:2;flex:1 1 100%;padding-left:0;border-left:0;margin-top:-6px;font-size:13px}}
+
+/* notification bell */
+.bellw{position:relative;display:inline-block}
+.bell{position:relative;display:grid;place-items:center}
+.bell svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.bdg{position:absolute;top:3px;right:3px;min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:#d93025;color:#fff;font-size:11px;font-weight:700;line-height:18px;text-align:center;border:2px solid var(--bg);box-sizing:content-box}
+.npanel{position:fixed;z-index:30;width:min(400px,calc(100vw - 24px));max-height:min(520px,calc(100vh - 100px));display:flex;flex-direction:column;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 28px rgba(0,0,0,.28);overflow:hidden}
+.npanel[hidden]{display:none}
+.nh{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--border);font-weight:500;font-size:16px}
+.nh small{color:var(--muted);font-weight:400;font-size:12px}
+.nl{overflow-y:auto;overscroll-behavior:contain}
+.ni{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer}
+.ni:last-child{border-bottom:0}
+.ni:hover{background:var(--chip)}
+.ni .app-ico{width:44px;height:44px;flex:none;font-size:20px;border-radius:10px}
+.ni .nb{min-width:0;flex:1}
+.ni b{display:flex;justify-content:space-between;gap:8px;font-size:14px;font-weight:600}
+.ni b i{font-style:normal;font-weight:400;font-size:12px;color:var(--muted);white-space:nowrap}
+.ni p{margin:2px 0 0;font-size:13px;color:var(--text)}
+.ni p.none{color:var(--muted)}
+.nempty{padding:28px 16px;text-align:center;color:var(--muted);font-size:14px}
+.ni.new b:after{content:"";width:8px;height:8px;border-radius:50%;background:var(--green);flex:none;margin-top:5px;order:2}
+.ni.new b i{margin-left:auto;order:1}
 </style>
 </head>
 <body>
@@ -158,6 +181,8 @@ pre.code{margin:0;max-width:900px;overflow-x:auto;padding:14px 16px;border-radiu
   <a class="logo" href="#"><svg viewBox="0 0 512 512" aria-hidden="true"><defs><linearGradient id="lfbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5b5bf0"/><stop offset="1" stop-color="#0ea5e9"/></linearGradient><linearGradient id="lfsp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff176"/><stop offset="1" stop-color="#ff9800"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#lfbg)"/><g transform="translate(256 262) rotate(-45)" fill="none" stroke-linecap="round"><rect x="-160" y="-48" width="180" height="96" rx="48" stroke="#fff" stroke-width="28"/><rect x="-20" y="-48" width="180" height="96" rx="48" stroke="url(#lfbg)" stroke-width="46"/><rect x="-20" y="-48" width="180" height="96" rx="48" stroke="#fff" stroke-width="28"/></g><path d="M392 78l11 33 33 11-33 11-11 33-11-33-33-11 33-11z" fill="url(#lfsp)"/><circle cx="130" cy="396" r="9" fill="#fff" opacity=".7"/><circle cx="164" cy="420" r="5" fill="#fff" opacity=".5"/></svg>LinkForge<span class="ver">Vr. 1.4.0</span></a>
   <span class="btag">Discover. Explore. Launch.</span>
   <label class="search"><span aria-hidden="true">🔍</span><input id="q" type="search" placeholder="Search projects" aria-label="Search projects"></label>
+  <span class="bellw"><button class="ib bell" id="bell" aria-label="Notifications" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="bdg" id="bdg" hidden>0</span></button></span>
+  <div class="npanel" id="npanel" role="dialog" aria-label="Latest updates" hidden><div class="nh">Latest updates<small id="ncount"></small></div><div class="nl" id="nlist"></div></div>
   <button class="ib" id="theme" aria-label="Toggle theme">🌓</button>
 </div></div>
 
@@ -300,6 +325,49 @@ var X={"codepulse": {"tag": "Write. Run. Preview. Create.", "l": "CodePulse is a
     location.hash=apps[+c.getAttribute("data-i")].id;
   });
   route();
+
+  // ---- Notifications: latest update per project (new projects in `apps` appear automatically) ----
+  // Add updates here: UPDATES["project-id"]=[{d:"2026-11-01",t:"What changed"}, ...]  (newest date wins)
+  var UPDATES={
+    // "codepulse":[{d:"2026-11-01",t:"Example: added dark mode"}]
+  };
+  (function(){
+    var seen={};try{seen=JSON.parse(localStorage.getItem("lf-seen")||"{}")}catch(_){}
+    function latest(a){var u=(UPDATES[a.id]||(a.up)||[]).slice().sort(function(x,y){return x.d<y.d?1:x.d>y.d?-1:0});return u[0]||null}
+    function key(a,u){return a.id+"|"+u.d+"|"+u.t}
+    function fmt(d){var t=new Date(d);return isNaN(t)?d:t.toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"})}
+    function items(){
+      var w=apps.map(function(a){return{a:a,u:latest(a)}});
+      w.sort(function(x,y){if(x.u&&y.u)return x.u.d<y.u.d?1:-1;return x.u?-1:y.u?1:0});
+      return w;
+    }
+    function unread(){return items().filter(function(r){return r.u&&!seen[key(r.a,r.u)]}).length}
+    function badge(){var n=unread(),b=$("#bdg");b.hidden=!n;b.textContent=n>9?"9+":n;$("#bell").setAttribute("aria-label",n?"Notifications, "+n+" new":"Notifications")}
+    function render(){
+      var r=items(),n=r.filter(function(x){return x.u}).length;
+      $("#ncount").textContent=n?n+" with updates":"";
+      r=r.filter(function(x){return x.u});
+      $("#nlist").innerHTML=r.length?r.map(function(x){var a=x.a,u=x.u;
+        return '<div class="ni'+(!seen[key(a,u)]?' new':'')+'" data-id="'+a.id+'"><div class="app-ico" style="background:'+a.bg+'">'+ico(a)+'</div><div class="nb"><b><span>'+a.n+'</span><i>'+fmt(u.d)+'</i></b><p>'+u.t+'</p></div></div>'}).join(""):
+        '<div class="nempty">The latest update will show here.</div>';
+    }
+    function place(){var r=$("#bell").getBoundingClientRect(),p=$("#npanel"),w=Math.min(400,innerWidth-24);
+      p.style.top=(r.bottom+8)+"px";p.style.left=Math.max(12,Math.min(r.right-w,innerWidth-w-12))+"px"}
+    function close(){$("#npanel").hidden=true;$("#bell").setAttribute("aria-expanded","false")}
+    function open(){
+      render();place();$("#npanel").hidden=false;$("#bell").setAttribute("aria-expanded","true");
+      items().forEach(function(r){if(r.u)seen[key(r.a,r.u)]=1});
+      try{localStorage.setItem("lf-seen",JSON.stringify(seen))}catch(_){}
+      badge();
+    }
+    $("#bell").addEventListener("click",function(e){e.stopPropagation();$("#npanel").hidden?open():close()});
+    $("#npanel").addEventListener("click",function(e){e.stopPropagation();var i=e.target.closest(".ni");if(i){close();location.hash=i.getAttribute("data-id")}});
+    document.addEventListener("click",close);
+    document.addEventListener("keydown",function(e){if(e.key==="Escape")close()});
+    window.addEventListener("resize",function(){if(!$("#npanel").hidden)place()});
+    window.addEventListener("scroll",function(){if(!$("#npanel").hidden)place()},{passive:true});
+    badge();
+  })();
   var root=document.documentElement;
   try{var s=localStorage.getItem("lf-theme");if(s)root.setAttribute("data-theme",s)}catch(_){}
   $("#theme").addEventListener("click",function(){
