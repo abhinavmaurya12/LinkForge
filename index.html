@@ -424,6 +424,26 @@ aside .fb{order:3;margin-top:24px}
   .d-acts .btn.go{flex:1 1 100%;height:44px}
   .d-acts .btn.sec2{flex:1 1 0;height:40px;font-size:13px;padding:0 6px}
 }
+
+/* ===== Section cards + working scroll rows ===== */
+.sc{margin:20px 0;padding:6px 16px 14px;border:1px solid var(--border);border-radius:20px;background:var(--card)}
+.sc h3.sec,.catrows .sc h3.sec{margin:12px 0 8px}
+.catrows h3.sec{margin-top:12px}
+.rw{position:relative}
+.row{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x pan-y;scroll-snap-type:none;scroll-behavior:auto;margin:0;padding:4px 2px 10px;gap:8px;cursor:grab}
+.row.drag{cursor:grabbing;user-select:none}
+.row.drag .tile{pointer-events:none}
+.tile{margin:0;flex:none}
+.ra{display:none}
+@media (hover:hover) and (min-width:900px){
+  .ra{display:grid;place-items:center;position:absolute;top:38px;z-index:3;width:38px;height:38px;padding:0 0 3px;border:1px solid var(--border);border-radius:50%;background:var(--card);color:var(--text);font-size:24px;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+  .ra.prev{left:-12px}.ra.next{right:-12px}
+  .ra:disabled{opacity:0;pointer-events:none}
+}
+@media (max-width:600px){
+  .sc{margin:14px 0;padding:2px 12px 10px;border-radius:16px}
+  .row{margin:0 -12px;padding:4px 12px 8px}
+}
 </style>
 </head>
 <body>
@@ -462,11 +482,11 @@ aside .fb{order:3;margin-top:24px}
   <div class="hwrap" id="hwrap"><section class="heroes" id="hero"></section><button class="harr prev" id="hprev" type="button" aria-label="Previous">&#8249;</button><button class="harr next" id="hnext" type="button" aria-label="Next">&#8250;</button></div>
   <div class="hdots" id="hdots"></div>
 
-  <h3 class="sec" id="sugg-h">Suggested for you<span class="go" aria-hidden="true">&rarr;</span> <span id="count"></span></h3>
-  <div class="row" id="row"></div>
+  <section class="sc" id="suggcard"><h3 class="sec" id="sugg-h">Suggested for you<span class="go" aria-hidden="true">&rarr;</span> <span id="count"></span></h3>
+  <div class="rw"><div class="row" id="row"></div></div></section>
   <div class="catrows" id="catrows"></div>
-  <h3 class="sec" id="wish-h" hidden>Your wishlist<span class="go" aria-hidden="true">&rarr;</span></h3>
-  <div class="row" id="wishrow" hidden></div>
+  <section class="sc" id="wishcard" hidden><h3 class="sec" id="wish-h">Your wishlist<span class="go" aria-hidden="true">&rarr;</span></h3>
+  <div class="rw"><div class="row" id="wishrow"></div></div></section>
 
   <h3 class="sec" id="all-h">All projects</h3>
   <div class="grid" id="grid"></div>
@@ -544,7 +564,7 @@ var X={"codepulse": {"tag": "Write. Run. Preview. Create.", "l": "CodePulse is a
   $("#catrows").innerHTML=cats.slice(1).map(function(c){
     var m=apps.filter(function(a){return a.c.split(" ").indexOf(c[0])>-1});
     if(m.length<2&&c[0]!=="games")return "";
-    return '<h3 class="sec">'+(c[0]==="games"?"Games":c[1]+' projects')+'<span class="go" aria-hidden="true">&rarr;</span></h3><div class="row">'+m.map(tileHtml).join("")+'</div>';
+    return '<section class="sc"><h3 class="sec">'+(c[0]==="games"?"Games":c[1]+' projects')+'<span class="go" aria-hidden="true">&rarr;</span></h3><div class="rw"><div class="row">'+m.map(tileHtml).join("")+'</div></div></section>';
   }).join("");
   $("#tabs").innerHTML=cats.map(function(c,i){return '<button class="chip'+(i?'':' on')+'" data-f="'+c[0]+'">'+c[1]+'</button>'}).join("");
   $("#grid").innerHTML=apps.map(function(a,i){
@@ -562,7 +582,7 @@ var X={"codepulse": {"tag": "Write. Run. Preview. Create.", "l": "CodePulse is a
     });
     $("#empty").hidden=n>0;
     var on=f!=="all"||term!=="";
-    $("#hero").hidden=on;$("#hwrap").hidden=on;$("#hdots").hidden=on;$("#sugg-h").hidden=on;$("#row").hidden=on;$("#catrows").hidden=on;
+    $("#hero").hidden=on;$("#hwrap").hidden=on;$("#hdots").hidden=on;$("#suggcard").hidden=on;$("#catrows").hidden=on;
     $("#empty").textContent=f==="wish"&&!term?"Your wishlist is empty. Open a project and tap Add to wishlist.":"No projects match your search.";
     renderWish();markRail();
     $("#all-h").textContent=on?(f!=="all"?lbl:"Results")+" · "+n+(n===1?" project":" projects"):"All projects";
@@ -601,7 +621,7 @@ var X={"codepulse": {"tag": "Write. Run. Preview. Create.", "l": "CodePulse is a
     return '<details class="sup"><summary>App support</summary><div class="sup-b">'+A(a.u,"Website")+(a.s?A(a.s,"Source code"):"")+A("https://github.com/abhinavmaurya12","Developer GitHub")+A("https://www.linkedin.com/in/abhinav-maurya-25162b338","Developer LinkedIn")+'</div></details>'}
   function renderWish(){
     var on=f!=="all"||term!=="",m=wish.map(byId).filter(Boolean);
-    $("#wish-h").hidden=on||!m.length;$("#wishrow").hidden=on||!m.length;
+    $("#wishcard").hidden=on||!m.length;
     $("#wishrow").innerHTML=m.map(tileHtml).join("");
   }
   var IC={home:"M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z",grid:"M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z",heart:"M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z",bell:"M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z",person:"M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"};
@@ -697,6 +717,38 @@ var X={"codepulse": {"tag": "Write. Run. Preview. Create.", "l": "CodePulse is a
     var c=e.target.closest(".card");if(!c||e.target.closest("a,button"))return;
     location.hash=apps[+c.getAttribute("data-i")].id;
   });
+
+  // ---- scrollable rows: wheel, drag, arrows ----
+  function enhanceRows(root){
+    [].forEach.call((root||document).querySelectorAll(".rw"),function(w){
+      if(w.getAttribute("data-e"))return;w.setAttribute("data-e","1");
+      var r=w.querySelector(".row");if(!r)return;
+      var pv=document.createElement("button"),nx=document.createElement("button");
+      pv.className="ra prev";nx.className="ra next";pv.type=nx.type="button";
+      pv.setAttribute("aria-label","Scroll left");nx.setAttribute("aria-label","Scroll right");
+      pv.innerHTML="&#8249;";nx.innerHTML="&#8250;";w.appendChild(pv);w.appendChild(nx);
+      function sync(){pv.disabled=r.scrollLeft<=2;nx.disabled=r.scrollLeft+r.clientWidth>=r.scrollWidth-2}
+      pv.addEventListener("click",function(){r.scrollBy({left:-r.clientWidth*.8,behavior:"smooth"})});
+      nx.addEventListener("click",function(){r.scrollBy({left:r.clientWidth*.8,behavior:"smooth"})});
+      r.addEventListener("scroll",sync,{passive:true});
+      window.addEventListener("resize",sync);
+      r.addEventListener("wheel",function(e){
+        if(Math.abs(e.deltaX)>Math.abs(e.deltaY)||r.scrollWidth<=r.clientWidth)return;
+        var max=r.scrollWidth-r.clientWidth;
+        if((e.deltaY<0&&r.scrollLeft<=0)||(e.deltaY>0&&r.scrollLeft>=max))return;
+        e.preventDefault();r.scrollLeft+=e.deltaY;
+      },{passive:false});
+      var down=false,sx=0,sl=0,moved=false;
+      r.addEventListener("mousedown",function(e){if(e.button)return;down=true;moved=false;sx=e.pageX;sl=r.scrollLeft});
+      window.addEventListener("mousemove",function(e){if(!down)return;var dx=e.pageX-sx;if(Math.abs(dx)>4){moved=true;r.classList.add("drag")}if(moved)r.scrollLeft=sl-dx});
+      window.addEventListener("mouseup",function(){if(!down)return;down=false;r.classList.remove("drag")});
+      r.addEventListener("click",function(e){if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
+      r.addEventListener("dragstart",function(e){e.preventDefault()});
+      setTimeout(sync,0);
+    });
+  }
+  enhanceRows();
+  var _rw=renderWish;renderWish=function(){_rw();enhanceRows()};
   route();renderWish();markRail();
 
   // ---- Notifications: latest update per project (new projects in `apps` appear automatically) ----
