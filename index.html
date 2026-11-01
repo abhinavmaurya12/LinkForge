@@ -372,6 +372,58 @@ h3.sec #count{margin-left:auto}
 @media (max-width:700px){
   .ppanel{top:auto;left:0;right:0;bottom:0;width:auto;max-height:86vh;border-radius:24px 24px 0 0;border-width:1px 0 0;padding-bottom:calc(22px + env(safe-area-inset-bottom,0px))}
 }
+/* hero cards for every app (desktop) */
+.hwrap{position:relative}
+.harr{display:none}
+@media (min-width:900px){
+  .hero-x{display:flex}
+  .heroes{scroll-behavior:smooth;margin-bottom:0}
+  .heroes .hero{min-height:236px}
+  .heroes .hero p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .harr{display:grid;place-items:center;position:absolute;top:50%;z-index:3;width:44px;height:44px;margin-top:-22px;padding:0 0 4px;border:0;border-radius:50%;background:var(--card);color:var(--text);font-size:30px;line-height:1;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.35);transition:opacity .15s}
+  .harr.prev{left:-14px}.harr.next{right:-14px}
+  .harr:disabled{opacity:0;pointer-events:none}
+  .hdots{display:flex;justify-content:center;gap:8px;margin:14px 0 0}
+  .hd{width:8px;height:8px;padding:0;border:0;border-radius:4px;background:var(--border);cursor:pointer;transition:width .2s,background .2s}
+  .hd.on{width:24px;background:var(--green)}
+}
+/* hero dots on every screen size */
+.hdots{display:flex;justify-content:center;gap:8px;margin:10px 0 0}
+.hd{width:8px;height:8px;padding:0;border:0;border-radius:4px;background:var(--border);cursor:pointer;transition:width .2s,background .2s}
+.hd.on{width:22px;background:var(--green)}
+@media (max-width:899px){.heroes .hero{min-height:0}.heroes{scroll-padding:0 var(--pad)}}
+/* ===== Play Store style app page ===== */
+.d-head{align-items:flex-start;gap:20px;padding:28px 0 0}
+.d-head .app-ico{width:128px;border-radius:24px;font-size:60px}
+.d-ti{min-width:0}
+.d-ti h1{margin:0;font-size:32px;font-weight:500;line-height:1.2}
+.d-dev{display:block;margin-top:6px;padding:0;border:0;background:none;color:var(--green);font:inherit;font-size:14px;font-weight:500;cursor:pointer;text-align:left}
+.d-dev:hover{text-decoration:underline}
+.d-head .tagl{margin-top:8px;font-size:14px}
+.d-head .meta{margin-top:6px;font-size:12px;color:var(--muted)}
+.d-stats{border:0;margin:22px 0 18px;padding:0}
+.d-stats div{flex:1 0 104px;padding:2px 14px}
+.d-stats b{font-size:14px;font-weight:500}
+.d-acts{margin:0 0 20px;gap:8px}
+.d-acts .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.d-acts .btn.go{min-width:200px;height:40px;border-radius:8px;background:var(--green);border-color:var(--green);color:#fff;font-weight:500}
+.d-acts .btn.go:hover{filter:brightness(1.08);background:var(--green)}
+.d-acts .btn.sec2 svg{width:18px;height:18px;fill:currentColor;flex:none}
+.d-acts .btn.sec2.on svg{fill:var(--green)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0}
+.cp{padding:6px 14px;border:1px solid var(--border);border-radius:99px;font-size:13px}
+.d-grid>div h3.sec{font-size:20px}
+aside{display:flex;flex-direction:column}
+aside .fb{order:3;margin-top:24px}
+@media (max-width:600px){
+  .d-head{gap:14px;padding-top:12px;align-items:center}
+  .d-head .app-ico{width:76px;font-size:36px;border-radius:18px}
+  .d-ti h1{font-size:22px}
+  .d-stats{margin:16px calc(-1*var(--pad)) 14px;padding:0 var(--pad);overflow-x:auto}
+  .d-stats div{flex:1 0 96px;padding:2px 10px}
+  .d-acts .btn.go{flex:1 1 100%;height:44px}
+  .d-acts .btn.sec2{flex:1 1 0;height:40px;font-size:13px;padding:0 6px}
+}
 </style>
 </head>
 <body>
@@ -407,7 +459,8 @@ h3.sec #count{margin-left:auto}
   <div id="home">
   <div class="tabs" id="tabs"></div>
 
-  <section class="heroes" id="hero"></section>
+  <div class="hwrap" id="hwrap"><section class="heroes" id="hero"></section><button class="harr prev" id="hprev" type="button" aria-label="Previous">&#8249;</button><button class="harr next" id="hnext" type="button" aria-label="Next">&#8250;</button></div>
+  <div class="hdots" id="hdots"></div>
 
   <h3 class="sec" id="sugg-h">Suggested for you<span class="go" aria-hidden="true">&rarr;</span> <span id="count"></span></h3>
   <div class="row" id="row"></div>
@@ -457,7 +510,33 @@ var X={"codepulse": {"tag": "Write. Run. Preview. Create.", "l": "CodePulse is a
   var term="",f="all",lbl="All";
   function esc(x){return x}
   var feat=[["codepulse","Editors’ choice · New"," — Modern Code Editor","linear-gradient(120deg,#1a73e8,#7b3ff2 60%,#d93f9a)"],["problemx","Editors’ choice"," — Solve Beyond Limits","linear-gradient(120deg,#ff8c00,#e65100 60%,#b23a00)"]];
-  $("#hero").innerHTML=feat.map(function(x){var h=byId(x[0]);return '<div class="hero" style="background:'+x[3]+'"><div class="app-ico" style="background:'+h.bg+'">'+ico(h)+'</div><div><small>'+x[1]+'</small><h2>'+h.n+x[2]+'</h2><p>'+h.d+'</p><div class="hbtns"><a class="btn" href="'+h.u+'" target="_blank" rel="noopener">Open live ↗</a><a class="btn ghost" href="#'+h.id+'">Details</a></div></div></div>'}).join("");
+  function heroHtml(h,label,suffix,bg,extra){return '<div class="hero'+(extra?' hero-x':'')+'" style="background:'+bg+'"><div class="app-ico" style="background:'+h.bg+'">'+ico(h)+'</div><div><small>'+label+'</small><h2>'+h.n+suffix+'</h2><p>'+h.d+'</p><div class="hbtns"><a class="btn" href="'+h.u+'" target="_blank" rel="noopener">Open live ↗</a><a class="btn ghost" href="#'+h.id+'">Details</a></div></div></div>'}
+  var featIds=feat.map(function(x){return x[0]});
+  $("#hero").innerHTML=feat.map(function(x){return heroHtml(byId(x[0]),x[1],x[2],x[3],false)}).join("")+
+    apps.filter(function(a){return featIds.indexOf(a.id)<0}).map(function(a){return heroHtml(a,a.t.join(" · "),"","linear-gradient(rgba(0,0,0,.16),rgba(0,0,0,.16)),"+a.bg,true)}).join("");
+  (function(){
+    var hs=$("#hero"),dots=$("#hdots"),pv=$("#hprev"),nx=$("#hnext");
+    function vis(){return [].filter.call(hs.children,function(c){return c.offsetParent!==null})}
+    function step(){var c=vis();if(!c.length)return 0;return c[0].getBoundingClientRect().width+14}
+    function per(){var st=step();return st?Math.max(1,Math.round(hs.clientWidth/st)):1}
+    function build(){
+      var n=vis().length,d=Math.max(0,n-per()+1);
+      dots.innerHTML=d>1?Array.apply(null,Array(d)).map(function(_,i){return '<button class="hd" type="button" data-i="'+i+'" aria-label="Go to banner '+(i+1)+'"></button>'}).join(""):"";
+      sync();
+    }
+    function sync(){
+      var st=step()||1,i=Math.round(hs.scrollLeft/st);
+      [].forEach.call(dots.children,function(b,k){b.classList.toggle("on",k===i)});
+      pv.disabled=hs.scrollLeft<=2;nx.disabled=hs.scrollLeft+hs.clientWidth>=hs.scrollWidth-2;
+    }
+    pv.addEventListener("click",function(){hs.scrollBy({left:-step(),behavior:"smooth"})});
+    nx.addEventListener("click",function(){hs.scrollBy({left:step(),behavior:"smooth"})});
+    dots.addEventListener("click",function(e){var b=e.target.closest(".hd");if(b)hs.scrollTo({left:b.getAttribute("data-i")*step(),behavior:"smooth"})});
+    hs.addEventListener("scroll",function(){window.requestAnimationFrame(sync)});
+    window.addEventListener("resize",build);
+    window.addEventListener("hashchange",function(){setTimeout(build,60)});
+    build();
+  })();
   $("#count").textContent=apps.length+" apps";
   $("#row").innerHTML=apps.map(function(a){return '<a class="tile" href="#'+a.id+'"><div class="app-ico" style="background:'+a.bg+'">'+ico(a)+'</div><b>'+a.n+'</b><small>'+a.t[0]+'</small></a>'}).join("");
   function tileHtml(a){return '<a class="tile" href="#'+a.id+'"><div class="app-ico" style="background:'+a.bg+'">'+ico(a)+'</div><b>'+a.n+'</b><small>'+a.t[0]+' &middot; Free</small></a>'}
@@ -483,7 +562,7 @@ var X={"codepulse": {"tag": "Write. Run. Preview. Create.", "l": "CodePulse is a
     });
     $("#empty").hidden=n>0;
     var on=f!=="all"||term!=="";
-    $("#hero").hidden=on;$("#sugg-h").hidden=on;$("#row").hidden=on;$("#catrows").hidden=on;
+    $("#hero").hidden=on;$("#hwrap").hidden=on;$("#hdots").hidden=on;$("#sugg-h").hidden=on;$("#row").hidden=on;$("#catrows").hidden=on;
     $("#empty").textContent=f==="wish"&&!term?"Your wishlist is empty. Open a project and tap Add to wishlist.":"No projects match your search.";
     renderWish();markRail();
     $("#all-h").textContent=on?(f!=="all"?lbl:"Results")+" · "+n+(n===1?" project":" projects"):"All projects";
@@ -546,6 +625,7 @@ var X={"codepulse": {"tag": "Write. Run. Preview. Create.", "l": "CodePulse is a
     if(location.hash)location.hash="";
     setFilter(r,l);window.scrollTo(0,0);
   });
+  document.addEventListener("click",function(e){if(e.target.closest("[data-profile]")){e.preventDefault();$("#avatar").click()}});
   var sg=$("#sugg");
   function sugg(){
     if(!term){sg.hidden=true;return}
@@ -563,27 +643,27 @@ var X={"codepulse": {"tag": "Write. Run. Preview. Create.", "l": "CodePulse is a
     var id=b.getAttribute("data-wish"),i=wish.indexOf(id),t=$("#toast");
     if(i>-1)wish.splice(i,1);else wish.push(id);
     try{localStorage.setItem("lf-wish",JSON.stringify(wish))}catch(_){}
-    b.innerHTML=i>-1?"&#9825; Add to wishlist":"&#10003; In wishlist";
+    b.classList.toggle("on",i<=-1);var lb=b.querySelector("span");if(lb)lb.textContent=i>-1?"Add to wishlist":"In wishlist";
     t.textContent=i>-1?"Removed from wishlist":"Added to wishlist";t.style.display="block";setTimeout(function(){t.style.display="none";t.textContent="Link copied"},1500);
     renderWish();if(f==="wish")apply();
   });
-  var pvMode="m";
+  var pvMode="d";
   function whatsNew(a){var u=(UPDATES[a.id]||a.up||[]).slice().sort(function(x,y){return x.d<y.d?1:-1})[0];
     return u?'<h3 class="sec">What&rsquo;s new<span class="go" aria-hidden="true">&rarr;</span></h3><div class="newbox"><small>'+u.d+'</small>'+u.t+'</div>':''}
   function detail(a){
     var sim=apps.filter(function(x){return x!==a&&a.c.split(" ").some(function(w){return x.c.indexOf(w)>-1})});
     if(sim.length<3)sim=apps.filter(function(x){return x!==a});
     var rows=[["Developer","Abhinav Maurya"],["Platform","Web · any browser"],["Price","Free"],["Status","● Live"]];
-    det.innerHTML='<div class="d-head"><div class="app-ico" style="background:'+a.bg+'">'+ico(a)+'</div><div><h1>'+a.n+'</h1>'+(a.tag?'<div class="tagl">'+a.tag+'</div>':'')+'<div class="dev">Abhinav Maurya</div><div class="meta">'+a.t.join(" · ")+'</div></div></div>'+
+    det.innerHTML='<div class="d-head"><div class="app-ico" style="background:'+a.bg+'">'+ico(a)+'</div><div class="d-ti"><h1>'+a.n+'</h1><button class="d-dev" type="button" data-profile>Abhinav Maurya</button>'+(a.tag?'<div class="tagl">'+a.tag+'</div>':'')+'<div class="meta">Free · Opens in your browser</div></div></div>'+
     '<div class="d-stats"><div><b>Live</b><small>Status</small></div><div><b>Free</b><small>Price</small></div><div><b>Web</b><small>Platform</small></div><div><b>'+a.t[0]+'</b><small>Category</small></div></div>'+
-    '<div class="acts d-acts"><a class="btn go" href="'+a.u+'" target="_blank" rel="noopener">Open</a><button class="btn" data-copy="'+a.u+'">Copy link</button>'+(a.s?'<a class="btn" href="'+a.s+'" target="_blank" rel="noopener">Source</a>':'')+'<button class="btn" data-wish="'+a.id+'">'+(wish.indexOf(a.id)>-1?"&#10003; In wishlist":"&#9825; Add to wishlist")+'</button><button class="btn" data-share="'+a.u+'" data-title="'+a.n+'">Share</button></div>'+
-    '<div class="d-grid"><div><h3 class="sec">Live preview</h3><div class="pv-tabs" role="group" aria-label="Preview size"><button class="pvb'+(pvMode==="m"?' on':'')+'" data-mode="m">&#128241; Mobile</button><button class="pvb'+(pvMode==="d"?' on':'')+'" data-mode="d">&#128187; Desktop</button></div><div class="phone'+(pvMode==="d"?' desk':'')+'"><div class="ph-in"><div class="app-ico" style="background:'+a.bg+'">'+ico(a)+'</div><button class="btn go" data-load="'+a.u+'">Load preview</button><span>If a site blocks embedding, use Open instead.</span></div></div>'+
-    '<h3 class="sec">About this app<span class="go" aria-hidden="true">&rarr;</span></h3><p class="long">'+a.l+'</p>'+whatsNew(a)+
+    '<div class="acts d-acts"><a class="btn go" href="'+a.u+'" target="_blank" rel="noopener">Open</a><button class="btn sec2" data-share="'+a.u+'" data-title="'+a.n+'"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg><span>Share</span></button><button class="btn sec2'+(wish.indexOf(a.id)>-1?' on':'')+'" data-wish="'+a.id+'"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span>'+(wish.indexOf(a.id)>-1?"In wishlist":"Add to wishlist")+'</span></button></div>'+
+    '<div class="d-grid"><div><div class="pv-tabs" role="group" aria-label="Preview size"><button class="pvb'+(pvMode==="m"?' on':'')+'" data-mode="m">&#128241; Mobile</button><button class="pvb'+(pvMode==="d"?' on':'')+'" data-mode="d">&#128187; Desktop</button></div><div class="phone'+(pvMode==="d"?' desk':'')+'"><div class="ph-in"><div class="app-ico" style="background:'+a.bg+'">'+ico(a)+'</div><button class="btn go" data-load="'+a.u+'">Load preview</button><span>If a site blocks embedding, use Open instead.</span></div></div>'+
+    '<h3 class="sec">About this app<span class="go" aria-hidden="true">&rarr;</span></h3><p class="long">'+a.l+'</p><div class="chips">'+a.t.map(function(t){return '<span class="cp">'+t+'</span>'}).join("")+'</div>'+whatsNew(a)+
     '<h3 class="sec">Key features</h3>'+list(a.f)+(a.note?'<p class="note">'+a.note+'</p>':'')+
     extra(a)+
     '<h3 class="sec">About the developer</h3><p class="long"><b>Abhinav Maurya</b> — Java Full Stack Developer | Web Developer | Problem Solver. See more projects on <a href="https://github.com/abhinavmaurya12" target="_blank" rel="noopener" style="color:var(--green);font-weight:500">GitHub ↗</a>.</p>'+support(a)+'</div>'+
     '<aside><section class="fb"><h5>App info</h5>'+rows.map(function(r){return '<div class="irow"><span>'+r[0]+'</span><span>'+r[1]+'</span></div>'}).join("")+'<div class="irow"><span>Website</span><a href="'+a.u+'" target="_blank" rel="noopener">'+a.u.replace(/^https?:\/\//,"")+'</a></div>'+(a.s?'<div class="irow"><span>Source</span><a href="'+a.s+'" target="_blank" rel="noopener">GitHub repo</a></div>':'')+'</section>'+
-    '<h3 class="sec">Similar projects</h3>'+sim.slice(0,5).map(function(x){return '<a class="sim" href="#'+x.id+'"><div class="app-ico" style="background:'+x.bg+'">'+ico(x)+'</div><div><b>'+x.n+'</b><small>'+x.t[0]+'</small></div></a>'}).join("")+'</aside></div>';
+    '<h3 class="sec">Similar apps<span class="go" aria-hidden="true">&rarr;</span></h3>'+sim.slice(0,5).map(function(x){return '<a class="sim" href="#'+x.id+'"><div class="app-ico" style="background:'+x.bg+'">'+ico(x)+'</div><div><b>'+x.n+'</b><small>'+x.t[0]+' · Free</small></div></a>'}).join("")+'</aside></div>';
   }
   function route(){
     var id=location.hash.slice(1),a=apps.filter(function(x){return x.id===id})[0];
