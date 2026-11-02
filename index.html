@@ -675,14 +675,14 @@ var CPS=[{"t": "Welcome", "s": "data:image/webp;base64,UklGRix6AABXRUJQVlA4ICB6A
   /* ===== Ratings & reviews (Firebase Firestore) =====
      Paste your Firebase web config below (Firebase console > Project settings > Your apps).
      Leave apiKey empty to keep reviews in this browser only. */
-  var FB_CONFIG={apiKey:"AIzaSyCYEZwLf7pB_WCgQrjNI72unMP7ADq4FjA",authDomain:"linkforge-ebad8.firebaseapp.com",projectId:"linkforge-ebad8",storageBucket:"linkforge-ebad8.firebasestorage.app",messagingSenderId:"726850853731",appId:"1:726850853731:web:1312832fdd2e4406611156"};
-  var fbOn=!!(FB_CONFIG.apiKey&&FB_CONFIG.projectId),fbDb=null,fbUid=null,fbReady=null,rvData={},rvUnsub=null,rvMem={};
+  var FB_CONFIG={apiKey:"AIzaSyCYEZwLf7pB_WCgQrjNI72unMP7ADq4FjA",authDomain:"linkforge-ebad8.firebaseapp.com",projectId:"linkforge-ebad8",storageBucket:"linkforge-ebad8.firebasestorage.app",messagingSenderId:"726850853731",appId:"1:726850853731:web:1312832fdd2e4406611156",measurementId:"G-NH5L1CBJN6"};
+  var fbOn=!!(FB_CONFIG.apiKey&&FB_CONFIG.projectId),fbDb=null,fbUid=null,fbReady=null,rvData={},rvUnsub=null,rvMem={},fbErr="";
   function fbInit(){if(!fbOn)return Promise.resolve(false);if(fbReady)return fbReady;
     function ld(u){return new Promise(function(res,rej){var t=document.createElement("script");t.src=u;t.onload=res;t.onerror=rej;document.head.appendChild(t)})}
     var b="https://www.gstatic.com/firebasejs/10.12.2/";
     fbReady=ld(b+"firebase-app-compat.js").then(function(){return Promise.all([ld(b+"firebase-firestore-compat.js"),ld(b+"firebase-auth-compat.js")])})
       .then(function(){firebase.initializeApp(FB_CONFIG);fbDb=firebase.firestore();return firebase.auth().signInAnonymously()})
-      .then(function(c){fbUid=c.user.uid;return true}).catch(function(){fbOn=false;return false});
+      .then(function(c){fbUid=c.user.uid;try{ld(b+"firebase-analytics-compat.js").then(function(){firebase.analytics()}).catch(function(){})}catch(x){}return true}).catch(function(e){fbErr=(e&&(e.code||e.message))||"script blocked";fbOn=false;return false});
     return fbReady}
   function rvLocal(id){try{return JSON.parse(localStorage.getItem("lf_rev_"+id)||"null")}catch(e){return rvMem[id]||null}}
   function rvLocalSet(id,v){rvMem[id]=v;try{if(v)localStorage.setItem("lf_rev_"+id,JSON.stringify(v));else localStorage.removeItem("lf_rev_"+id)}catch(e){}}
@@ -703,14 +703,14 @@ var CPS=[{"t": "Welcome", "s": "data:image/webp;base64,UklGRix6AABXRUJQVlA4ICB6A
     if(box.getAttribute("data-s")!==st||!box.firstChild){box.setAttribute("data-s",st);box.innerHTML=mine?rvItem(mine,true):rvFormHtml()}
     else if(mine)box.innerHTML=rvItem(mine,true);
     sec.querySelector(".rv-list").innerHTML=others.map(function(x){return rvItem(x,false)}).join("");
-    sec.querySelector(".rv-note").textContent=fbOn?"Reviews are public and shared with everyone who visits.":"Reviews are saved in this browser only."}
+    sec.querySelector(".rv-note").textContent=fbOn?"Reviews are public and shared with everyone who visits.":(fbErr?"Not connected to the shared database ("+fbErr+") \u2014 reviews are saved in this browser only.":"Reviews are saved in this browser only.")}
   function rvBind(sec){var id=sec.getAttribute("data-id");sec.setAttribute("data-b","1");if(rvUnsub){try{rvUnsub()}catch(e){}rvUnsub=null}
     var l=rvLocal(id);rvData[id]=l?[{uid:"local",name:l.n,r:l.r,t:l.t,ts:l.ts}]:[];rvPaint(sec);
     if(!fbOn)return;
     fbInit().then(function(ok){if(!sec.isConnected)return;if(!ok){rvData[id]=l?[{uid:"local",name:l.n,r:l.r,t:l.t,ts:l.ts}]:[];rvPaint(sec);return}
       rvUnsub=fbDb.collection("reviews").where("appId","==",id).limit(200).onSnapshot(function(q){
         rvData[id]=q.docs.map(function(d){var x=d.data({serverTimestamps:"estimate"});return{uid:x.uid,name:x.name,r:x.rating,t:x.text,ts:x.ts&&x.ts.toMillis?x.ts.toMillis():Date.now()}});
-        if(sec.isConnected)rvPaint(sec)},function(){var m=sec.querySelector(".rv-note");if(m)m.textContent="Couldn't load reviews right now."})})}
+        if(sec.isConnected)rvPaint(sec)},function(er){var m=sec.querySelector(".rv-note");if(m)m.textContent="Couldn't load reviews ("+((er&&er.code)||"error")+"). Check Firestore rules and that the database exists."})})}
   function rvScan(){Array.prototype.forEach.call(document.querySelectorAll(".rv:not([data-b])"),rvBind)}
   new MutationObserver(rvScan).observe(document.documentElement,{childList:true,subtree:true});
   document.addEventListener("click",function(e){var t=e.target,sec=t.closest&&t.closest(".rv");if(!sec)return;var id=sec.getAttribute("data-id");
@@ -719,7 +719,7 @@ var CPS=[{"t": "Welcome", "s": "data:image/webp;base64,UklGRix6AABXRUJQVlA4ICB6A
       var name=sec.querySelector(".rv-n").value.trim().slice(0,30),text=sec.querySelector(".rv-t").value.trim().slice(0,500),btn=sec.querySelector(".rv-sub");try{localStorage.setItem("lf_name",name)}catch(x){}
       if(!fbOn){rvLocalSet(id,{r:val,t:text,n:name,ts:Date.now()});rvData[id]=[{uid:"local",name:name,r:val,t:text,ts:Date.now()}];rvPaint(sec);return}
       btn.disabled=true;msg.textContent="";
-      fbDb.collection("reviews").doc(id+"_"+fbUid).set({appId:id,uid:fbUid,name:name,rating:val,text:text,ts:firebase.firestore.FieldValue.serverTimestamp()}).catch(function(){btn.disabled=false;msg.textContent="Couldn't post your review. Please try again."});return}
+      fbDb.collection("reviews").doc(id+"_"+fbUid).set({appId:id,uid:fbUid,name:name,rating:val,text:text,ts:firebase.firestore.FieldValue.serverTimestamp()}).catch(function(er){btn.disabled=false;msg.textContent="Couldn't post ("+((er&&er.code)||"error")+"). Check Firestore rules."});return}
     if(t.closest(".rv-del")){if(!fbOn){rvLocalSet(id,null);rvData[id]=[];rvPaint(sec);return}
       fbDb.collection("reviews").doc(id+"_"+fbUid).delete()}});
   function dsafe(a){return '<h3 class="sec">Data safety<span class="go" aria-hidden="true">&rarr;</span></h3><div class="dsafe"><p>Safety starts with understanding how developers collect and share your data.</p><ul><li><i>&#10003;</i>LinkForge does not collect your personal data when you browse this store.</li><li><i>&#10003;</i>Opens on its own website in your browser &mdash; nothing to install.</li><li><i>&#9432;</i>This project is hosted separately, so its own privacy practices may apply.</li></ul></div>'}
